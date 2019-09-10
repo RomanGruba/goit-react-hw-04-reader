@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import styles from './App.module.css';
-import items from './Components/publications.json';
-import Publication from './Components/Publication/Publication';
-import Counter from './Components/Counter/Counter';
-import Controls from './Components/Controls/Controls';
+import styles from './Reader.module.css';
+import items from './publications.json';
+import Publication from './Publication/Publication';
+import Counter from './Counter/Counter';
+import Controls from './Controls/Controls';
 
 export default class Reader extends Component {
   constructor(items) {
@@ -31,7 +31,10 @@ export default class Reader extends Component {
         nextBtnDisabled: nextBtnD,
       };
     });
-    console.log(this.props.location);
+    this.props.history.push({
+      ...this.props.location,
+      search: `item=${this.state.publicationItem + 2}`,
+    });
   };
 
   handleDecrement = () => {

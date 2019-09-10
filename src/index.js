@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { HashRouter, Route } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 import publications from './Components/publications.json';
-import App from './App';
+import App from './Components/App';
 
 ReactDOM.render(
-  <HashRouter basename="/">
-    <App />
+  <HashRouter>
+    <App items={publications} />
   </HashRouter>,
   document.getElementById('root'),
 );
