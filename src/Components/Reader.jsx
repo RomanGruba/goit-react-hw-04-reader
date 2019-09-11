@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
+import queryString from 'query-string';
 import styles from './Reader.module.css';
 import items from './publications.json';
 import Publication from './Publication/Publication';
 import Counter from './Counter/Counter';
 import Controls from './Controls/Controls';
+
+const getItemFromLocation = location => queryString.parse(location.search).item;
 
 export default class Reader extends Component {
   constructor(items) {
@@ -13,6 +16,22 @@ export default class Reader extends Component {
       prevBtnDisabled: true,
       nextBtnDisabled: false,
     };
+  }
+
+  componentDidMount() {
+    const currentItemFromLocation = getItemFromLocation(this.props.location);
+    console.log(!currentItemFromLocation);
+    if (!currentItemFromLocation) {
+      this.props.history.push({
+        ...this.props.location,
+        search: `item=${this.state.publicationItem + 1}`,
+      });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log(prevProps);
+    console.log(this.props);
   }
 
   handleIncrement = () => {
@@ -31,6 +50,7 @@ export default class Reader extends Component {
         nextBtnDisabled: nextBtnD,
       };
     });
+
     this.props.history.push({
       ...this.props.location,
       search: `item=${this.state.publicationItem + 2}`,
@@ -52,11 +72,19 @@ export default class Reader extends Component {
         nextBtnDisabled: nextBtnD,
       };
     });
+    this.props.history.push({
+      ...this.props.location,
+      search: `item=${this.state.publicationItem}`,
+    });
   };
 
   render() {
     const currentItem = this.state.publicationItem;
     const { prevBtnDisabled, nextBtnDisabled } = this.state;
+    const { location } = this.props;
+    const currentItemFromLocation = getItemFromLocation(location);
+
+    // console.log(typeof currentItemFromLocation);
     return (
       <div className={styles.reader}>
         <Publication currentItem={currentItem} items={items} />
