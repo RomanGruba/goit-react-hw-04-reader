@@ -22,7 +22,25 @@ export default class Reader extends Component {
     const currentItemFromLocation = getItemFromLocation(this.props.location);
     if (currentItemFromLocation === 1) {
       this.setState({ prevBtnDisabled: true });
+
+      this.props.history.push({
+        ...this.props.location,
+        search: `item=${this.state.publicationItem + 2}`,
+      });
     }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log(this.state.publicationItem);
+    console.log(prevProps.location !== this.props.location);
+    console.log(prevProps.location);
+    console.log(this.props.location);
+    // if (prevProps !== this.props) {
+    //   this.props.history.push({
+    //     ...this.props.location,
+    //     search: `item=${this.state.publicationItem}`,
+    //   });
+    // }
   }
 
   handleIncrement = () => {
@@ -34,20 +52,16 @@ export default class Reader extends Component {
       if (this.prevBtnDisabled && prevState.publicationItem === 1) {
         prevBtnD = false;
       }
-
       return {
         publicationItem: prevState.publicationItem + 1,
         prevBtnDisabled: prevBtnD,
         nextBtnDisabled: nextBtnD,
       };
     });
-    const currentItemFromLocation = getItemFromLocation(this.props.location);
-    if (currentItemFromLocation < this.props.items.length) {
-      this.props.history.push({
-        ...this.props.location,
-        search: `item=${this.state.publicationItem + 2}`,
-      });
-    }
+    this.props.history.push({
+      ...this.props.location,
+      search: `item=${this.state.publicationItem + 2}`,
+    });
   };
 
   handleDecrement = () => {
@@ -67,7 +81,7 @@ export default class Reader extends Component {
     });
     this.props.history.push({
       ...this.props.location,
-      search: `item=${this.state.publicationItem + 2}`,
+      search: `item=${this.state.publicationItem}`,
     });
   };
 
