@@ -13,25 +13,16 @@ export default class Reader extends Component {
     super(items);
     this.state = {
       publicationItem: 0,
-      prevBtnDisabled: true,
+      prevBtnDisabled: false,
       nextBtnDisabled: false,
     };
   }
 
   componentDidMount() {
     const currentItemFromLocation = getItemFromLocation(this.props.location);
-    console.log(!currentItemFromLocation);
-    if (!currentItemFromLocation) {
-      this.props.history.push({
-        ...this.props.location,
-        search: `item=${this.state.publicationItem + 1}`,
-      });
+    if (currentItemFromLocation === 1) {
+      this.setState({ prevBtnDisabled: true });
     }
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    console.log(prevProps);
-    console.log(this.props);
   }
 
   handleIncrement = () => {
@@ -50,11 +41,13 @@ export default class Reader extends Component {
         nextBtnDisabled: nextBtnD,
       };
     });
-
-    this.props.history.push({
-      ...this.props.location,
-      search: `item=${this.state.publicationItem + 2}`,
-    });
+    const currentItemFromLocation = getItemFromLocation(this.props.location);
+    if (currentItemFromLocation < this.props.items.length) {
+      this.props.history.push({
+        ...this.props.location,
+        search: `item=${this.state.publicationItem + 2}`,
+      });
+    }
   };
 
   handleDecrement = () => {
@@ -74,21 +67,19 @@ export default class Reader extends Component {
     });
     this.props.history.push({
       ...this.props.location,
-      search: `item=${this.state.publicationItem}`,
+      search: `item=${this.state.publicationItem + 2}`,
     });
   };
 
   render() {
-    const currentItem = this.state.publicationItem;
+    // const currentItem = this.state.publicationItem;
     const { prevBtnDisabled, nextBtnDisabled } = this.state;
     const { location } = this.props;
     const currentItemFromLocation = getItemFromLocation(location);
-
-    // console.log(typeof currentItemFromLocation);
     return (
       <div className={styles.reader}>
-        <Publication currentItem={currentItem} items={items} />
-        <Counter currentItem={currentItem} items={items} />
+        <Publication currentItem={+currentItemFromLocation - 1} items={items} />
+        <Counter currentItem={+currentItemFromLocation - 1} items={items} />
         <Controls
           onIncrement={this.handleIncrement}
           onDecrement={this.handleDecrement}
