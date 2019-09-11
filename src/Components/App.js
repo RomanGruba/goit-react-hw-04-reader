@@ -8,11 +8,7 @@ export default class App extends Component {
   render() {
     return (
       <Switch>
-        <Route
-          path="/reader"
-          render={props => <Reader {...props} items={this.props.items} />}
-        />
-
+        <Route path="/reader" component={Reader} />} />
         <Redirect
           to={{
             pathname: '/reader',

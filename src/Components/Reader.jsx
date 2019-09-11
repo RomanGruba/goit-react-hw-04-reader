@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import queryString from 'query-string';
 import styles from './Reader.module.css';
-// import items from './publications.json';
+import items from './publications.json';
 import Publication from './Publication/Publication';
 import Counter from './Counter/Counter';
 import Controls from './Controls/Controls';
@@ -25,7 +25,7 @@ export default class Reader extends Component {
   }
 
   handleIncrement = () => {
-    const beforeLast = this.props.items.length - 2;
+    const beforeLast = items.length - 2;
     this.setState(prevState => {
       const nextBtnD = prevState.publicationItem === beforeLast;
 
@@ -46,7 +46,7 @@ export default class Reader extends Component {
   };
 
   handleDecrement = () => {
-    const beforeLast = this.props.items.length - 2;
+    const beforeLast = items.length - 2;
     this.setState(prevState => {
       const prevBtnD = prevState.publicationItem === 1;
 
@@ -67,11 +67,12 @@ export default class Reader extends Component {
   };
 
   render() {
-    // const currentItem = this.state.publicationItem;
-    const { items } = this.props;
     const { prevBtnDisabled, nextBtnDisabled } = this.state;
     const { location } = this.props;
-    const currentItemFromLocation = getItemFromLocation(location);
+    let currentItemFromLocation = 1;
+    if (getItemFromLocation(location)) {
+      currentItemFromLocation = getItemFromLocation(location);
+    }
     return (
       <div className={styles.reader}>
         <Publication currentItem={+currentItemFromLocation - 1} items={items} />

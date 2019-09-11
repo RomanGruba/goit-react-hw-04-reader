@@ -6,7 +6,7 @@ import App from './Components/App';
 
 ReactDOM.render(
   <HashRouter>
-    <App items={publications} />
+    <App />
   </HashRouter>,
   document.getElementById('root'),
 );
