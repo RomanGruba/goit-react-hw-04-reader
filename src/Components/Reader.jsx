@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import queryString from 'query-string';
 import styles from './Reader.module.css';
-import items from './publications.json';
+// import items from './publications.json';
 import Publication from './Publication/Publication';
 import Counter from './Counter/Counter';
 import Controls from './Controls/Controls';
@@ -9,14 +9,11 @@ import Controls from './Controls/Controls';
 const getItemFromLocation = location => queryString.parse(location.search).item;
 
 export default class Reader extends Component {
-  constructor(items) {
-    super(items);
-    this.state = {
-      publicationItem: 0,
-      prevBtnDisabled: false,
-      nextBtnDisabled: false,
-    };
-  }
+  state = {
+    publicationItem: 0,
+    prevBtnDisabled: false,
+    nextBtnDisabled: false,
+  };
 
   componentDidMount() {
     const currentItemFromLocation = getItemFromLocation(this.props.location);
@@ -87,6 +84,7 @@ export default class Reader extends Component {
 
   render() {
     // const currentItem = this.state.publicationItem;
+    const {items} = this.props;
     const { prevBtnDisabled, nextBtnDisabled } = this.state;
     const { location } = this.props;
     const currentItemFromLocation = getItemFromLocation(location);
