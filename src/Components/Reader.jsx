@@ -16,8 +16,9 @@ export default class Reader extends Component {
   };
 
   componentDidMount() {
-    console.log('sdsds');
-    const currentItemFromLocation = getItemFromLocation(this.props.location);
+    const currentItemFromLocation = Number(
+      getItemFromLocation(this.props.location),
+    );
     if (currentItemFromLocation === 1) {
       this.setState({ prevBtnDisabled: true });
     }
