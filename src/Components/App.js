@@ -12,6 +12,7 @@ export default class App extends Component {
           path="/reader"
           render={props => <Reader {...props} items={this.props.items} />}
         />
+
         <Redirect
           to={{
             pathname: '/reader',

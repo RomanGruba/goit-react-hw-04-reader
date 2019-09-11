@@ -16,28 +16,11 @@ export default class Reader extends Component {
   };
 
   componentDidMount() {
+    console.log('sdsds');
     const currentItemFromLocation = getItemFromLocation(this.props.location);
     if (currentItemFromLocation === 1) {
       this.setState({ prevBtnDisabled: true });
-
-      this.props.history.push({
-        ...this.props.location,
-        search: `item=${this.state.publicationItem + 2}`,
-      });
     }
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    console.log(this.state.publicationItem);
-    console.log(prevProps.location !== this.props.location);
-    console.log(prevProps.location);
-    console.log(this.props.location);
-    // if (prevProps !== this.props) {
-    //   this.props.history.push({
-    //     ...this.props.location,
-    //     search: `item=${this.state.publicationItem}`,
-    //   });
-    // }
   }
 
   handleIncrement = () => {
@@ -84,7 +67,7 @@ export default class Reader extends Component {
 
   render() {
     // const currentItem = this.state.publicationItem;
-    const {items} = this.props;
+    const { items } = this.props;
     const { prevBtnDisabled, nextBtnDisabled } = this.state;
     const { location } = this.props;
     const currentItemFromLocation = getItemFromLocation(location);
