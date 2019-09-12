@@ -16,10 +16,21 @@ export default class Reader extends Component {
   };
 
   componentDidMount() {
-    const currentItemFromLocation = Number(
-      getItemFromLocation(this.props.location),
-    );
-    if (currentItemFromLocation === 1) {
+    if (this.state.publicationItem === 0) {
+      this.setState({ prevBtnDisabled: true });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log('sdsdsds');
+    if (getItemFromLocation(this.props.location) > items.length) {
+      this.props.history.replace({
+        search: `item=1`,
+      });
+      this.setState({ publicationItem: 0 });
+    }
+
+    if (prevState.publicationItem === 1 && this.state.publicationItem === 0) {
       this.setState({ prevBtnDisabled: true });
     }
   }
@@ -72,6 +83,9 @@ export default class Reader extends Component {
     let currentItemFromLocation = 1;
     if (getItemFromLocation(location)) {
       currentItemFromLocation = getItemFromLocation(location);
+    }
+    if (getItemFromLocation(location) > items.length) {
+      currentItemFromLocation = 1;
     }
     return (
       <div className={styles.reader}>

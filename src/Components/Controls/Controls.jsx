@@ -14,6 +14,7 @@ const Controls = ({
   <section className={styles.controls}>
     <button
       type="button"
+      disabled={prevBtnDisabled}
       onClick={onDecrement}
       className={cx({
         button: true,
@@ -24,6 +25,7 @@ const Controls = ({
     </button>
     <button
       type="button"
+      disabled={nextBtnDisabled}
       className={cx({
         button: true,
         buttonDisabled: nextBtnDisabled === true,

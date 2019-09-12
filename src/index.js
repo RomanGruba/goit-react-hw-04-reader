@@ -1,11 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { HashRouter } from 'react-router-dom';
-import publications from './Components/publications.json';
 import App from './Components/App';
 
 ReactDOM.render(
-  <HashRouter>
+  <HashRouter basename="/">
     <App />
   </HashRouter>,
   document.getElementById('root'),
