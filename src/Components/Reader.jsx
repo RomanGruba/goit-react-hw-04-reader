@@ -32,28 +32,27 @@ export default class Reader extends Component {
     if (currentItemFromLocation !== previousItemFromLocation) {
       this.setState({ publicationItem: currentItemFromLocation - 1 });
     }
-    if (previousItemFromLocation > items.length) {
-      this.setState({ prevBtnDisabled: true });
-    }
 
     if (getItemFromLocation(this.props.location) > items.length) {
       this.props.history.replace({
         search: `item=1`,
       });
-      this.setState({ publicationItem: 0 });
+      this.setState({ publicationItem: 0, prevBtnDisabled: true });
     }
 
     if (prevState.publicationItem === 1 && this.state.publicationItem === 0) {
       this.setState({ prevBtnDisabled: true });
     }
-    if (prevState.publicationItem === 1 && this.state.publicationItem === 0) {
-      this.setState({ prevBtnDisabled: true });
-    }
+
     if (
       prevState.publicationItem === items.length &&
       this.state.publicationItem < items.length
     ) {
       this.setState({ nextBtnDisabled: false });
+    }
+
+    if (prevState.publicationItem === 0 && this.state.publicationItem > 0) {
+      this.setState({ prevBtnDisabled: false });
     }
   }
 
